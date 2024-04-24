@@ -55,8 +55,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>..\environment\occ\inc;..\environment\vsgFile;..\environment\pybind11\include;..\environment\Python\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\environment\occ\lib;..\environment\vsgFile;..\environment\Python\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\..\environment\occ\inc;..\..\..\environment\vsgFile;..\..\..\environment\pybind11\include;..\..\..\environment\Python\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\environment\occ\lib;..\..\..\environment\vsgFile;..\..\..\environment\Python\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
