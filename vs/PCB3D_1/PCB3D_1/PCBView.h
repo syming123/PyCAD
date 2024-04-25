@@ -1,10 +1,15 @@
+/*
+* 使用VSG进行渲染
+*
+*/
+
 #pragma once
 
 #include "PySharing.h"
 
 //vsg
 #include <vsgQt/Window.h>
-#include<vsg/all.h>
+#include <vsg/all.h>
 //occ
 #include "OCCGeometry.h"
 

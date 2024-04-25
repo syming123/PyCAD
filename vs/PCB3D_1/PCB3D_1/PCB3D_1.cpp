@@ -26,17 +26,6 @@ PCB3D_1::PCB3D_1(QWidget *parent)
        OCCGeometry og(shape);
        view->repaint(og);
    };
-   //TopoDS_Shape shape1 = BRepPrimAPI_MakeBox(5, 12, 5).Shape();
-   //OCCGeometry og(shape1);
-   //view->repaint(og);
-   //changeShape();
-
-}
-
-void PCB3D_1::changeShape() {
-    TopoDS_Shape shape = BRepPrimAPI_MakeBox(5, 6, 7).Shape();
-    OCCGeometry og(shape);
-    view->repaint(og);
 }
 
 PCB3D_1::~PCB3D_1()

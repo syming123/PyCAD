@@ -1,3 +1,8 @@
+/*
+* Ö÷½çÃæUI
+*
+*/
+
 #pragma once
 #include "PythonConsole.h"
 #include "PySharing.h"
@@ -17,7 +22,6 @@ class PCB3D_1 : public QMainWindow
 public:
     PCB3D_1(QWidget *parent = nullptr);
     ~PCB3D_1();
-    void changeShape();
 
 private:
     Ui::PCB3D_1Class ui;

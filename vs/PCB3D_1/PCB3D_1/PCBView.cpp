@@ -1,4 +1,4 @@
-#include"PCBView.h"
+#include "PCBView.h"
 
 
 class info :public vsg::Visitor {
@@ -17,8 +17,8 @@ class info :public vsg::Visitor {
 
 void PCBView::createPipline(OCCGeometry geometry) {
     scene = vsg::Group::create();
-    shader=vsg::ShaderSet::create();
-    shader=readShader("../res/shaders/standard.vert", "../res/shaders/standard_phong.frag");
+    shader = vsg::ShaderSet::create();
+    shader = readShader("../res/shaders/standard.vert", "../res/shaders/standard_phong.frag");
     vsg::ref_ptr<vsg::vec4Value> default_color;
     vsg::ref_ptr<vsg::PhongMaterialValue> default_material;
 
@@ -162,7 +162,7 @@ void PCBView::createWindow(vsg::ref_ptr<vsg::Group> scene)
 
 
     //light
-    scene=createLight(scene);
+    scene = createLight(scene);
 
     auto view = vsg::View::create(camera, scene);
     auto renderGraph = vsg::RenderGraph::create(*window, view);
@@ -209,11 +209,11 @@ void PCBView::repaint(OCCGeometry occgeo) {
     drawCommands->addChild(vsg::BindIndexBuffer::create(occgeo.indexes));
     drawCommands->addChild(vsg::DrawIndexed::create(occgeo.indexes->size(), 1, 0, 0, 0));
 
-
     info info0;
     graphicsPipelineConfig->accept(info0);
 
     stateGroup->children[0] = drawCommands;
+
 
     viewer->compile();
 }

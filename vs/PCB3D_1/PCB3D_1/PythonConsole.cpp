@@ -1,7 +1,6 @@
 /*
-* QT中嵌入Python控制台
-* 
-* 
+* Python控制台的UI
+* 基于QT组件
 */
 
 #include "PythonConsole.h"

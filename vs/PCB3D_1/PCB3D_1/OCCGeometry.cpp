@@ -1,24 +1,7 @@
 #include"OCCGeometry.h"
 
 
-#include <BRepMesh_IncrementalMesh.hxx>
-#include <TopTools_IndexedMapOfShape.hxx>
-#include<TopExp.hxx>
-#include<TopoDS.hxx>
-#include<BRepAlgoAPI_Cut.hxx>
-#include <STEPControl_Writer.hxx>
-#include <STEPControl_Reader.hxx>
-#include<IFSelect_ReturnStatus.hxx>
-
 OCCGeometry::OCCGeometry() {
-    type = BOX;
-    //makeShape();
-    gp_Trsf trsf;
-    trsf.SetValues(1, 0, 0, 3,
-        0, 1, 0, 3,
-        0, 0, 1, 0);
-
-    TopLoc_Location L(trsf);
     Shape = BRepPrimAPI_MakeBox(50, 50, 50).Shape();
     //Shape = BRepPrimAPI_MakeCylinder(5, 5).Shape();
     //Shape = BRepPrimAPI_MakeWedge(10, 8, 4, 5).Shape();
@@ -27,38 +10,16 @@ OCCGeometry::OCCGeometry() {
 };
 
 OCCGeometry::OCCGeometry(TopoDS_Shape shape) {
-    type = BOX;
-    //makeShape();
-    gp_Trsf trsf;
-    trsf.SetValues(1, 0, 0, 3,
-        0, 1, 0, 3,
-        0, 0, 1, 0);
-
-    TopLoc_Location L(trsf);
     Shape = shape;
-
     createMesh();
 };
-
-void OCCGeometry::changeShapeType(enum ShapeType thetype) {
-	type = thetype;
-    makeShape();
-    createMesh();
-}
-
-void OCCGeometry::makeShape() {
-
-	if (type == BOX) Shape = BRepPrimAPI_MakeBox(10, 12, 0.5);
-	else if (type == Cylinder) Shape = BRepPrimAPI_MakeCylinder(2, 5);
-}
 
 
 TopoDS_Shape OCCGeometry::getShape() {
 	return Shape;
 }
+
 void OCCGeometry::ShapeCut(TopoDS_Shape hole) {
-
-
     TopoDS_Shape ShapeCut = BRepAlgoAPI_Cut(Shape, hole);
     Shape = ShapeCut;
 }
@@ -153,14 +114,3 @@ void OCCGeometry::createMesh() {//离散化
 
 }
 
-
-
-void OCCGeometry::createStepFile() {
- 
-    STEPControl_Writer writer;
-    writer.Transfer(Shape, STEPControl_ShellBasedSurfaceModel);
-    const Standard_CString& aFileName = "C:/Users/lxf11/Desktop/test.stp";
-    if (writer.Write(aFileName))
-        std::cout << "stp文件输出成功";
-
-}

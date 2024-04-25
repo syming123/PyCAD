@@ -1,3 +1,7 @@
+/*
+* 声明全局变量（函数）
+*/
+
 #pragma once
 #include <iostream>
 #include <functional>
