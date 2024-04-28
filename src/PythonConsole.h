@@ -1,4 +1,11 @@
-#pragma once
+/*
+* Pythonæ§åˆ¶å°çš„UI
+* åŸºäºQTç»„ä»¶
+*/
+
+
+#ifndef PYTHONCONSOLE_H
+#define PYTHONCONSOLE_H
 
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
@@ -32,10 +39,10 @@ public:
 
 private:
 	Ui::PythonConsole ui;
-	int markPosition;  // ÉÏÒ»´Î¶ÁÈ¡ºóµÄ¹â±êÎ»ÖÃ
-	bool editable;  // ÎÄ±¾ÊÇ·ñ¿É±à¼­£¬¸ù¾İ¹â±êÎ»ÖÃÅĞ¶Ï
-    std::vector<int> replaces;  // ¶àĞĞÊäÈëÊ±ÌáÊ¾·û'.'(dot)µÄÎ»ÖÃ£¬ÔÚÖ´ĞĞÇ°É¾µô
-    QTextCharFormat receiveFormat, writeFormat, errorFormat;  // ½ÓÊÕ,Ğ´Èë,´íÎóÊ±µÄÎÄ×ÖÑùÊ½
+	int markPosition;  // ä¸Šä¸€æ¬¡è¯»å–åçš„å…‰æ ‡ä½ç½®
+	bool editable;  // æ–‡æœ¬æ˜¯å¦å¯ç¼–è¾‘ï¼Œæ ¹æ®å…‰æ ‡ä½ç½®åˆ¤æ–­
+	std::vector<int> replaces;  // å¤šè¡Œè¾“å…¥æ—¶æç¤ºç¬¦'.'(dot)çš„ä½ç½®ï¼Œåœ¨æ‰§è¡Œå‰åˆ æ‰
+	QTextCharFormat receiveFormat, writeFormat, errorFormat;  // æ¥æ”¶,å†™å…¥,é”™è¯¯æ—¶çš„æ–‡å­—æ ·å¼
     IOHandlerSpace::IOHandler* iohandler;
     py::scoped_interpreter* guard;
 
@@ -45,4 +52,4 @@ public slots:
 
 
 };
-
+#endif

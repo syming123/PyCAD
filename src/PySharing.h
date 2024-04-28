@@ -1,13 +1,13 @@
 /*
-* 声明全局变量（函数）
+* 澹版槑鍏ㄥ眬鍙橀噺锛堝嚱鏁帮級
 */
 
-#pragma once
+#ifndef PYSHARING_H
+#define PYSHARING_H
 #include <iostream>
 #include <functional>
 #include <TopoDS.hxx>
 
-// 在此处声明需要使用的全局函数
 namespace PySharing
 {
     extern std::function<void(std::string)> printOut;
@@ -16,3 +16,4 @@ namespace PySharing
     extern std::function<void(TopoDS_Shape)> changeShow;
 }
 
+#endif

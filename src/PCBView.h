@@ -1,19 +1,18 @@
 /*
-* 使用VSG进行渲染
-*
+* 浣跨敤VSG杩涜娓叉煋
 */
 
-#pragma once
+#ifndef PCBVIEW_H
+#define PCBVIEW_H
 
 #include "PySharing.h"
 
 //vsg
-#include <vsgQt/Window.h>
 #include <vsg/all.h>
+#include <vsgQt/Window.h>
+
 //occ
 #include "OCCGeometry.h"
-
-
 
 class PCBView {
 
@@ -35,5 +34,6 @@ private:
 	vsg::ref_ptr<vsgQt::Viewer> viewer;
 	vsg::ref_ptr<vsg::StateGroup> stateGroup;
 
-
 };
+
+#endif

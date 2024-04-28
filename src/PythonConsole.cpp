@@ -5,13 +5,13 @@
 
 #include "PythonConsole.h"
 
-PythonConsole::PythonConsole(QWidget *parent)
+PythonConsole::PythonConsole(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.plainTextEdit->installEventFilter(this);
 
-	QFont font = QFont("Consolas",10);
+	QFont font = QFont("Consolas", 10);
 	ui.plainTextEdit->setFont(font);
 	receiveFormat.setForeground(QBrush(Qt::black));
 	writeFormat.setForeground(QBrush(Qt::blue));
@@ -80,7 +80,7 @@ void PythonConsole::exec()
 	}
 	replaces.clear();
 
-	
+
 #if 0
 	// Æô¶¯Ò»¸öÏß³ÌÖ´ĞĞPythonÓï¾ä  !!GIL ERROR!!
 	std::thread t([=]() {
@@ -91,7 +91,7 @@ void PythonConsole::exec()
 
 		// ÔÚÏÂÒ»ĞĞÌí¼ÓÌáÊ¾±êÖ¾
 		putPrompt();
-	});
+		});
 	t.detach();
 #endif
 
@@ -160,7 +160,7 @@ void PythonConsole::cursorChange()  // ¹â±êÎ»ÖÃ·¢Éú¸Ä±äÊ±ÅĞ¶ÏÊÇ·ñ´¦ÓÚ¿É±à¼­ÇøÓò
 	//int position = cursor.position();
 	int start = cursor.selectionStart();
 	int end = cursor.selectionEnd();
-	if(start >= markPosition && end >=markPosition)
+	if (start >= markPosition && end >= markPosition)
 	{
 		ui.plainTextEdit->setReadOnly(false);
 		ui.plainTextEdit->setCurrentCharFormat(writeFormat);
@@ -169,8 +169,8 @@ void PythonConsole::cursorChange()  // ¹â±êÎ»ÖÃ·¢Éú¸Ä±äÊ±ÅĞ¶ÏÊÇ·ñ´¦ÓÚ¿É±à¼­ÇøÓò
 	{
 		ui.plainTextEdit->setReadOnly(true);
 	}
-	
-	
+
+
 	//qDebug() << "mark position:" << markPosition << "\tposition:" << position << endl;
 	//qDebug() << "start:" << start << "\tend:" << end << endl;
 
@@ -184,7 +184,7 @@ bool PythonConsole::eventFilter(QObject* watched, QEvent* event)  // ÉèÖÃ¼üÅÌ²Ù×
 		QKeyEvent* keyEv = (QKeyEvent*)event;
 		if (keyEv->key() == Qt::Key_Enter || keyEv->key() == Qt::Key_Return)
 		{
-			if (keyEv->modifiers() == Qt::AltModifier) 
+			if (keyEv->modifiers() == Qt::AltModifier)
 			{
 				// Enter+Alt»»ĞĞ
 				ui.plainTextEdit->setCurrentCharFormat(receiveFormat);
@@ -236,5 +236,3 @@ bool PythonConsole::eventFilter(QObject* watched, QEvent* event)  // ÉèÖÃ¼üÅÌ²Ù×
 	}
 	return false;
 }
-
-

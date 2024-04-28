@@ -28,7 +28,7 @@ void PCBView::createPipline(OCCGeometry geometry) {
     default_material->value().ambient.set(0.9, 0.9, 0.9, 1.0);
     default_material->value().diffuse.set(0.55, 0.55, 0.55, 1.0);
     default_material->value().specular.set(0.7, 0.7, 0.7, 1.0);
-    //std::cout << mat->value().shininess;//Ä¬ÈÏÖµÎª100
+    //std::cout << mat->value().shininess;//Ä¬ï¿½ï¿½ÖµÎª100
     default_material->value().shininess = 35;
 
 
@@ -37,14 +37,14 @@ void PCBView::createPipline(OCCGeometry geometry) {
     vsg::DataList vertexArrays;
     auto drawCommands = vsg::Commands::create();
 
-    //´«ÈëÄ£ÐÍ¼¸ºÎ²ÎÊý
+    //ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Í¼ï¿½ï¿½Î²ï¿½ï¿½ï¿½
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Vertex", VK_VERTEX_INPUT_RATE_VERTEX, geometry.vertices);
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Normal", VK_VERTEX_INPUT_RATE_VERTEX, geometry.normals);
     //graphicsPipelineConfig->assignArray(vertexArrays, "vsg_TexCoord0", VK_VERTEX_INPUT_RATE_VERTEX, texcoords);
 
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Color", VK_VERTEX_INPUT_RATE_INSTANCE, default_color);
     graphicsPipelineConfig->assignDescriptor("material", default_material);
-    //°ó¶¨Ë÷Òý
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drawCommands->addChild(vsg::BindVertexBuffers::create(graphicsPipelineConfig->baseAttributeBinding, vertexArrays));
 
     //   drawCommands->addChild(vsg::BindIndexBuffer::create(indicesVector[protoIndex[instance->ProtoID()->str()]]));
@@ -62,8 +62,12 @@ void PCBView::createPipline(OCCGeometry geometry) {
 
     
     scene->addChild(stateGroup);
-    createWindow(scene);
 
+    try{
+    createWindow(scene);
+    }catch(vsg::Exception e){
+        std::cout<<e.message<<std::endl;
+    }
 
 }
 
@@ -193,17 +197,17 @@ void PCBView::repaint(OCCGeometry occgeo) {
     default_material->value().specular.set(0.7, 0.7, 0.7, 1.0);
     default_material->value().shininess = 35;
 
-    //Ö´ÐÐÖØÐÂ»æÖÆµÄ´úÂë----------------------------------------------------------------
+    //æ‰§è¡Œé‡æ–°ç»˜åˆ¶çš„ä»£ç ----------------------------------------------------------------
     auto graphicsPipelineConfig = vsg::GraphicsPipelineConfigurator::create(shader);
     vsg::DataList vertexArrays;
-    //´«ÈëÄ£ÐÍ¼¸ºÎ²ÎÊý
+    //ä¼ å…¥æ¨¡åž‹å‡ ä½•å‚æ•°
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Vertex", VK_VERTEX_INPUT_RATE_VERTEX, occgeo.vertices);
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Normal", VK_VERTEX_INPUT_RATE_VERTEX, occgeo.normals);
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Color", VK_VERTEX_INPUT_RATE_INSTANCE, default_color);
     graphicsPipelineConfig->assignDescriptor("material", default_material);
     graphicsPipelineConfig->init();
     graphicsPipelineConfig->copyTo(stateGroup);
-    //°ó¶¨Ë÷Òý
+    //ç»‘å®šç´¢å¼•
     auto drawCommands = vsg::Commands::create();
     drawCommands->addChild(vsg::BindVertexBuffers::create(graphicsPipelineConfig->baseAttributeBinding, vertexArrays));
     drawCommands->addChild(vsg::BindIndexBuffer::create(occgeo.indexes));

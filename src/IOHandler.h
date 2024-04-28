@@ -1,8 +1,10 @@
 /*
-* PythonÊä³öÖØ¶¨Ïò
+* Pythonè¾“å‡ºé‡å®šå‘
 */
 
-#pragma once
+#ifndef IOHANDLER_H
+#define IOHANDLER_H
+
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
 #include <iostream>
@@ -29,11 +31,11 @@ namespace IOHandlerSpace
     public:
         IOHandler()
         {
-            // µ¼ÈëĞèÒªµÄpython¿â
+            // å¯¼å…¥éœ€è¦çš„pythonåº“
             _sys = py::module_::import("sys");
             _pyconsole = py::module_::import("pyconsole");
 
-            // Êä³öÖØ¶¨Ïòµ½pyconsole.out
+            // è¾“å‡ºé‡å®šå‘åˆ°pyconsole.out
             _stdout = _sys.attr("stdout");
             _sys.attr("stdout") = _pyconsole.attr("out");
         }
@@ -60,3 +62,4 @@ namespace IOHandlerSpace
 
 }
 
+#endif

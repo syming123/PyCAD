@@ -1,7 +1,8 @@
 #include"OCCGeometry.h"
 
 
-OCCGeometry::OCCGeometry() {
+OCCGeometry::OCCGeometry() 
+{
     Shape = BRepPrimAPI_MakeBox(50, 50, 50).Shape();
     //Shape = BRepPrimAPI_MakeCylinder(5, 5).Shape();
     //Shape = BRepPrimAPI_MakeWedge(10, 8, 4, 5).Shape();
@@ -9,22 +10,31 @@ OCCGeometry::OCCGeometry() {
     createMesh();
 };
 
-OCCGeometry::OCCGeometry(TopoDS_Shape shape) {
+OCCGeometry::OCCGeometry(TopoDS_Shape shape) 
+{
     Shape = shape;
     createMesh();
 };
 
 
-TopoDS_Shape OCCGeometry::getShape() {
+TopoDS_Shape OCCGeometry::getShape() 
+{
 	return Shape;
 }
 
-void OCCGeometry::ShapeCut(TopoDS_Shape hole) {
+void OCCGeometry::setShape(TopoDS_Shape shape) 
+{
+    Shape = shape;
+}
+
+void OCCGeometry::ShapeCut(TopoDS_Shape hole) 
+{
     TopoDS_Shape ShapeCut = BRepAlgoAPI_Cut(Shape, hole);
     Shape = ShapeCut;
 }
 
-void OCCGeometry::createMesh() {//ÀëÉ¢»¯
+void OCCGeometry::createMesh()  //ÀëÉ¢»¯
+{
     BRepMesh_IncrementalMesh(Shape, Standard_True);
 
     Standard_Integer aNbTriangles(0);
@@ -105,9 +115,7 @@ void OCCGeometry::createMesh() {//ÀëÉ¢»¯
                 normals->at(indexesnumber - 2) = n;
                 normals->at(indexesnumber - 1) = n;
 
-             
-          
-             
+
             }
         }
     }

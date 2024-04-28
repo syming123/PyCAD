@@ -1,9 +1,10 @@
 /*
-* Ê¹ÓÃOCC¶Ô¼¸ºÎÌå½øÐÐÀëÉ¢»¯
-*
+* ä½¿ç”¨OCCå¯¹å‡ ä½•ä½“è¿›è¡Œç¦»æ•£åŒ–
 */
 
-#pragma once
+#ifndef OCCGEOMETRY_H
+#define OCCGEOMETRY_H
+
 #include <BRepPrimAPI_MakeCylinder.hxx>
 #include <BRepPrimAPI_MakeBox.hxx>
 #include <BRepPrimAPI_MakeWedge.hxx>
@@ -22,7 +23,8 @@
 
 #include <vsg/all.h>
 
-class OCCGeometry {
+class OCCGeometry 
+{
 private:
 	TopoDS_Shape Shape;
 
@@ -32,12 +34,15 @@ public:
 	~OCCGeometry() {};
 
 	TopoDS_Shape getShape();
+	void setShape(TopoDS_Shape shape);
 	void ShapeCut(TopoDS_Shape hole);
 	void createMesh();
 	
 	
-	vsg::ref_ptr<vsg::vec3Array> vertices;
-	vsg::ref_ptr < vsg::vec2Array> coordinates;
-	vsg::ref_ptr < vsg::vec3Array> normals;
-	vsg::ref_ptr < vsg::uintArray> indexes;
+	vsg::ref_ptr <vsg::vec3Array> vertices;
+	vsg::ref_ptr <vsg::vec2Array> coordinates;
+	vsg::ref_ptr <vsg::vec3Array> normals;
+	vsg::ref_ptr <vsg::uintArray> indexes;
 };
+
+#endif

@@ -1,9 +1,10 @@
 /*
-* 进行Python绑定
-* 基于pybind11内嵌模块
+* 杩涜Python缁戝畾
+* 鍩轰簬pybind11鍐呭祵妯″潡
 */
 
-#pragma once
+#ifndef PYBINDINGFUNCTIONS_H
+#define PYBINDINGFUNCTIONS_H
 
 #include <iostream>
 #include <sstream>
@@ -75,13 +76,6 @@ PYBIND11_EMBEDDED_MODULE(occ, m)
         TopoDS_Shape result = reader.OneShape();
         return result;
     });
-    m.def("writeFile", [](TopoDS_Shape shape, std::string path) {
-        STEPControl_Writer writer;
-        writer.Transfer(shape, STEPControl_ShellBasedSurfaceModel);
-        const Standard_CString& aFileName = path.c_str();
-        if (writer.Write(aFileName))
-            std::cout << "stp文件输出成功";
-    });
 
     m.def("getInfo", [](TopoDS_Shape shape) {
         OCCGeometry og(shape);
@@ -112,3 +106,5 @@ PYBIND11_EMBEDDED_MODULE(occ, m)
         }
     });
 }
+
+#endif
