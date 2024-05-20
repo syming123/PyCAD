@@ -5,8 +5,6 @@
 #ifndef PCBVIEW_H
 #define PCBVIEW_H
 
-#include "PySharing.h"
-
 //vsg
 #include <vsg/all.h>
 #include <vsgQt/Window.h>

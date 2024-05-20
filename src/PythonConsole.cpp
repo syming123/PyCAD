@@ -19,19 +19,17 @@ PythonConsole::PythonConsole(QWidget* parent)
 
 	connect(ui.plainTextEdit, SIGNAL(cursorPositionChanged()), this, SLOT(cursorChange()));
 
-	// 为Python绑定输出函数
-	PySharing::printOut = [=](std::string str) {
-		printOut(str);
-	};
-	PySharing::printErr = [=](std::string str) {
-		printErr(str);
-	};
-
 	// 启动内嵌Python解释器
 	guard = new py::scoped_interpreter{};
 
 	// 使用IOHandler执行Python语句，并捕获Python标准输出和错误输出
 	iohandler = new IOHandlerSpace::IOHandler{};
+	iohandler->printOut = [=](std::string str) {
+		printOut(str);
+	};
+	iohandler->printErr = [=](std::string str) {
+		printErr(str);
+	};
 
 	// 输入初始提示信息
 	putMessage("python console started...\n");

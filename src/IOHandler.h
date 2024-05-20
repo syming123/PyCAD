@@ -8,12 +8,12 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
 #include <iostream>
+#include <functional>
 #include <thread>
 #include <QWidget>
 #include <QDebug>
 #include <QTextCursor>
 #include <vector>
-#include "PySharing.h"
 
 namespace py = pybind11;
 
@@ -29,6 +29,9 @@ namespace IOHandlerSpace
 
 
     public:
+        std::function<void(std::string)> printOut;
+        std::function<void(std::string)> printErr;
+
         IOHandler()
         {
             // 导入需要的python库
@@ -53,7 +56,7 @@ namespace IOHandlerSpace
             catch (py::error_already_set &e) {
                 std::string etype = e.type().str();
                 std::string evalue = e.value().str();
-                PySharing::printErr(etype + "\n" + evalue + "\n");
+                printErr(etype + "\n" + evalue + "\n");
                 std::cout << e.what() << std::endl;
             }
         }

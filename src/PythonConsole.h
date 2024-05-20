@@ -7,10 +7,7 @@
 #ifndef PYTHONCONSOLE_H
 #define PYTHONCONSOLE_H
 
-#include <pybind11/pybind11.h>
-#include <pybind11/embed.h>
 #include "IOHandler.h"
-#include "PySharing.h"
 #include <iostream>
 #include <thread>
 #include <QWidget>

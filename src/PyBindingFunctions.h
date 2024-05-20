@@ -8,9 +8,10 @@
 
 #include <iostream>
 #include <sstream>
-#include <pybind11/pybind11.h>
-#include <pybind11/embed.h>
-#include "PySharing.h"
+
+#include "PythonConsole.h"
+#include "OCCGeometry.h"
+#include "PCBView.h"
 
 #include <TopoDS.hxx>
 #include <BRepPrimAPI_MakeBox.hxx>
@@ -18,9 +19,10 @@
 #include <STEPControl_Reader.hxx>
 #include <STEPControl_Writer.hxx>
 
-#include "OCCGeometry.h"
-
 namespace py = pybind11;
+
+PythonConsole* bindingPythonConsole;
+PCBView* bindingPCBView;
 
 class PyConsoleOut
 {
@@ -28,7 +30,7 @@ public:
     void write(std::string str)
     {
         //std::cout << "console out:" << str << std::endl;
-        PySharing::printOut(str);
+        bindingPythonConsole->printOut(str);
     }
 };
 
@@ -47,7 +49,8 @@ PYBIND11_EMBEDDED_MODULE(gui, m)
         exit(0);
     });
     m.def("show", [](TopoDS_Shape shape) {
-        PySharing::showOCCShape(shape);
+        OCCGeometry og(shape);
+        bindingPCBView->repaint(og);
     });
 }
 
@@ -79,30 +82,30 @@ PYBIND11_EMBEDDED_MODULE(occ, m)
 
     m.def("getInfo", [](TopoDS_Shape shape) {
         OCCGeometry og(shape);
-        PySharing::printOut("vertices:");
+        bindingPythonConsole->printOut("vertices:");
         for (int i = 0; i < og.vertices->size(); i++) {
             std::stringstream ss;
             int x = og.vertices->at(i).x;
             int y = og.vertices->at(i).y;
             int z = og.vertices->at(i).z;
             ss << "(" << x << "," << y << "," << z << ")";
-            PySharing::printOut(ss.str());
+            bindingPythonConsole->printOut(ss.str());
         }
-        PySharing::printOut("indexes:");
+        bindingPythonConsole->printOut("indexes:");
         for (int i = 0; i < og.indexes->size(); i++) {
             std::stringstream ss;
             int idx = og.indexes->at(i);
             ss << idx;
-            PySharing::printOut(ss.str());
+            bindingPythonConsole->printOut(ss.str());
         }
-        PySharing::printOut("normals:");
+        bindingPythonConsole->printOut("normals:");
         for (int i = 0; i < og.normals->size(); i++) {
             std::stringstream ss;
             int x = og.normals->at(i).x;
             int y = og.normals->at(i).y;
             int z = og.normals->at(i).z;
             ss << "(" << x << "," << y << "," << z << ")";
-            PySharing::printOut(ss.str());
+            bindingPythonConsole->printOut(ss.str());
         }
     });
 }

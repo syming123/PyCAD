@@ -1,3 +1,4 @@
+#include "PyBindingFunctions.h"
 #include "mainwindow.h"
 
 
@@ -15,10 +16,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addWidget(pyconsole,3);
     setCentralWidget(mainWidget);
 
-    PySharing::showOCCShape = [=](TopoDS_Shape shape){
+    bindingPythonConsole = pyconsole;
+    bindingPCBView = view;
+    /*PySharing::showOCCShape = [=](TopoDS_Shape shape){
         OCCGeometry og(shape);
         view->repaint(og);
-    };
+    };*/
 }
 
 MainWindow::~MainWindow() {

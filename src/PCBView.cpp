@@ -37,14 +37,12 @@ void PCBView::createPipline(OCCGeometry geometry) {
     vsg::DataList vertexArrays;
     auto drawCommands = vsg::Commands::create();
 
-    //����ģ�ͼ��β���
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Vertex", VK_VERTEX_INPUT_RATE_VERTEX, geometry.vertices);
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Normal", VK_VERTEX_INPUT_RATE_VERTEX, geometry.normals);
     //graphicsPipelineConfig->assignArray(vertexArrays, "vsg_TexCoord0", VK_VERTEX_INPUT_RATE_VERTEX, texcoords);
 
     graphicsPipelineConfig->assignArray(vertexArrays, "vsg_Color", VK_VERTEX_INPUT_RATE_INSTANCE, default_color);
     graphicsPipelineConfig->assignDescriptor("material", default_material);
-    //������
     drawCommands->addChild(vsg::BindVertexBuffers::create(graphicsPipelineConfig->baseAttributeBinding, vertexArrays));
 
     //   drawCommands->addChild(vsg::BindIndexBuffer::create(indicesVector[protoIndex[instance->ProtoID()->str()]]));
@@ -58,17 +56,10 @@ void PCBView::createPipline(OCCGeometry geometry) {
     graphicsPipelineConfig->copyTo(stateGroup);
     //stateGroup->add(graphicsPipelineConfig);
     stateGroup->addChild(drawCommands);
-
-
     
     scene->addChild(stateGroup);
 
-    try{
     createWindow(scene);
-    }catch(vsg::Exception e){
-        std::cout<<e.message<<std::endl;
-    }
-
 }
 
 
@@ -217,6 +208,56 @@ void PCBView::repaint(OCCGeometry occgeo) {
     graphicsPipelineConfig->accept(info0);
 
     stateGroup->children[0] = drawCommands;
+
+
+
+
+
+    /*
+
+    // compute the bounds of the scene graph to help position camera
+    uint32_t width = window->traits->width;
+    uint32_t height = window->traits->height;
+    vsg::ComputeBounds computeBounds;
+    scene->accept(computeBounds);
+    vsg::dvec3 centre = (computeBounds.bounds.min + computeBounds.bounds.max) * 0.5;
+    double radius = vsg::length(computeBounds.bounds.max - computeBounds.bounds.min) * 0.6;
+    double nearFarRatio = 0.001;
+
+    //build main camera
+
+    auto lookAt = vsg::LookAt::create(centre + vsg::dvec3(0.0, -radius * 3.5, 0.0), centre, vsg::dvec3(0.0, 0.0, 1.0));
+    vsg::ref_ptr<vsg::ProjectionMatrix> perspective;
+
+    perspective = vsg::Perspective::create(
+        30.0,
+        static_cast<double>(width) /
+        static_cast<double>(height),
+        nearFarRatio * radius, radius * 100.0);
+
+    auto camera = vsg::Camera::create(perspective, lookAt, vsg::ViewportState::create(VkExtent2D{ width, height }));
+
+
+    //light
+    //scene = createLight(scene);
+
+    auto view = vsg::View::create(camera, scene);
+    auto renderGraph = vsg::RenderGraph::create(*window, view);
+    renderGraph->clearValues[0].color = { {0.9f, 0.9f, 0.9f, 1.0f} }; //background color
+    auto commandGraph = vsg::CommandGraph::create(*window, renderGraph);
+    commandGraph->addChild(renderGraph);
+
+    viewer->addRecordAndSubmitTaskAndPresentation({ commandGraph });
+
+    //add trackball event
+    auto trackball = vsg::Trackball::create(camera);
+    trackball->addWindow(*window);
+    viewer->addEventHandler(trackball);*/
+
+
+
+
+
 
 
     viewer->compile();

@@ -6,7 +6,7 @@
 #define MAINWINDOW_H
 
 #include "PythonConsole.h"
-#include "PySharing.h"
+
 #include "PCBView.h"
 
 #include <QtWidgets/QMainWindow>
