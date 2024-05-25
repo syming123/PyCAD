@@ -1,49 +1,23 @@
-#include"OCCGeometry.h"
+#include"Discrete_Shape.h"
 
 
-OCCGeometry::OCCGeometry() 
+Discrete_Shape::Discrete_Shape(TopoDS_Shape shape) 
 {
-    Shape = BRepPrimAPI_MakeBox(50, 50, 50).Shape();
-    //Shape = BRepPrimAPI_MakeCylinder(5, 5).Shape();
-    //Shape = BRepPrimAPI_MakeWedge(10, 8, 4, 5).Shape();
-
-    createMesh();
-};
-
-OCCGeometry::OCCGeometry(TopoDS_Shape shape) 
-{
-    Shape = shape;
-    createMesh();
+    discretize(shape);
 };
 
 
-TopoDS_Shape OCCGeometry::getShape() 
+void Discrete_Shape::discretize(TopoDS_Shape shape)
 {
-	return Shape;
-}
-
-void OCCGeometry::setShape(TopoDS_Shape shape) 
-{
-    Shape = shape;
-}
-
-void OCCGeometry::ShapeCut(TopoDS_Shape hole) 
-{
-    TopoDS_Shape ShapeCut = BRepAlgoAPI_Cut(Shape, hole);
-    Shape = ShapeCut;
-}
-
-void OCCGeometry::createMesh()  //¿Î…¢ªØ
-{
-    BRepMesh_IncrementalMesh(Shape, Standard_True);
+    BRepMesh_IncrementalMesh(shape, Standard_True);
 
     Standard_Integer aNbTriangles(0);
 
     TopLoc_Location aLoc;
-    Shape.Location(aLoc);
+    shape.Location(aLoc);
 
     TopTools_IndexedMapOfShape faceMap;
-    TopExp::MapShapes(Shape, TopAbs_FACE, faceMap);
+    TopExp::MapShapes(shape, TopAbs_FACE, faceMap);
     int Triangnumber = 0;
     int Nodenumber = 0;
 
@@ -121,4 +95,6 @@ void OCCGeometry::createMesh()  //¿Î…¢ªØ
     }
 
 }
+
+
 

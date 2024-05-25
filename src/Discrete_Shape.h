@@ -23,21 +23,14 @@
 
 #include <vsg/all.h>
 
-class OCCGeometry 
+class Discrete_Shape 
 {
-private:
-	TopoDS_Shape Shape;
-
 public: 
-	OCCGeometry();
-	OCCGeometry(TopoDS_Shape shape);
-	~OCCGeometry() {};
+	Discrete_Shape() {};
+	Discrete_Shape(TopoDS_Shape shape);
+	~Discrete_Shape() {};
 
-	TopoDS_Shape getShape();
-	void setShape(TopoDS_Shape shape);
-	void ShapeCut(TopoDS_Shape hole);
-	void createMesh();
-	
+	void discretize(TopoDS_Shape shape);
 	
 	vsg::ref_ptr <vsg::vec3Array> vertices;
 	vsg::ref_ptr <vsg::vec2Array> coordinates;

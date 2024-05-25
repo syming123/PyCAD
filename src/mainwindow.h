@@ -7,7 +7,7 @@
 
 #include "PythonConsole.h"
 
-#include "PCBView.h"
+#include "CADViewer.h"
 
 #include <QtWidgets/QMainWindow>
 #include <QWidget>
@@ -26,7 +26,7 @@ public:
 
 private:
     PythonConsole* pyconsole;
-    PCBView* view;
+    CADViewer* view;
 
 };
 

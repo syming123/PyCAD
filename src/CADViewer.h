@@ -10,20 +10,21 @@
 #include <vsgQt/Window.h>
 
 //occ
-#include "OCCGeometry.h"
+#include "Discrete_Shape.h"
 
-class PCBView {
+class CADViewer {
 
 public:
 	vsgQt::Window *window;
 	
 	void createWindow(vsg::ref_ptr<vsg::Group> scene);
-	void createPipline(OCCGeometry geometry);
+	void createPipline(Discrete_Shape dshape);
 	vsg::ref_ptr<vsg::Group> createLight(vsg::ref_ptr<vsg::Group> vsgScene);
 	vsg::ref_ptr<vsg::ShaderSet> readShader(const vsg::Path& vertFile, const vsg::Path& fragFile);
-	void repaint(OCCGeometry occgeo);
+	void repaint(Discrete_Shape dshape);
 
-
+	vsg::ref_ptr<vsg::vec4Value> color;
+	vsg::ref_ptr<vsg::PhongMaterialValue> material;
 	
 private:
 

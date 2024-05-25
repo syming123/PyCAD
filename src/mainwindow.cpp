@@ -6,9 +6,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     pyconsole = new PythonConsole{};
 
-    OCCGeometry occgeo;
-    view = new PCBView{};
-    view->createPipline(occgeo);
+    TopoDS_Shape shape = BRepPrimAPI_MakeBox(20, 20, 20);
+    Discrete_Shape dshape(shape);
+    view = new CADViewer{};
+    view->createPipline(dshape);
 
     QWidget* mainWidget = new QWidget(this);
     QVBoxLayout* layout = new QVBoxLayout(mainWidget);
@@ -17,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(mainWidget);
 
     bindingPythonConsole = pyconsole;
-    bindingPCBView = view;
+    cadViewer = view;
     /*PySharing::showOCCShape = [=](TopoDS_Shape shape){
-        OCCGeometry og(shape);
+        Discrete_Shape og(shape);
         view->repaint(og);
     };*/
 }

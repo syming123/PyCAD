@@ -1,0 +1,39 @@
+# 构建几何体并展示
+import OCCGeometry,OCCTools,Viewer
+box=OCCGeometry.makeBox(10,20,30)
+cylinder=OCCGeometry.makeCylinder(20,30)
+dbox=OCCTools.discretize(box)
+dcylinder=OCCTools.discretize(cylinder)
+Viewer.repaint(dbox)
+Viewer.repaint(dcylinder)
+
+# 读取stp模型并展示
+import OCCGeometry,OCCTools,Viewer
+model=OCCGeometry.readFile('C:/Data/models/helicopter.stp')
+dmodel=OCCTools.discretize(model)
+Viewer.repaint(dmodel)
+
+# 更改渲染时物体的颜色和材质
+import OCCGeometry,OCCTools,Viewer
+box=OCCGeometry.makeBox(10,20,30)
+dbox=OCCTools.discretize(box)
+Viewer.repaint(dbox)
+Viewer.setColor(1.0,0.0,0.0,1.0)
+Viewer.repaint(dbox)
+ambient=[0.1,0.2,0.3,1.0]
+diffuse=[0.4,0.5,0.6,1.0]
+specular=[0.7,0.8,0.9,1.0]
+Viewer.setMaterial(ambient,diffuse,specular,20)
+Viewer.repaint(dbox)
+
+# 获取几何体离散化信息
+import OCCGeometry,OCCTools,Viewer
+box=OCCGeometry.makeBox(10,20,30)
+dbox=OCCTools.discretize(box)
+vertices=OCCTools.getVertices(dbox)
+normals=OCCTools.getNormals(dbox)
+indexes=OCCTools.getIndexes(dbox)
+print(vertices)
+print(normals)
+print(indexes)
+
